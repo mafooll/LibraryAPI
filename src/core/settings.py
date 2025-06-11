@@ -46,13 +46,13 @@ class PostgresqlSettings(BaseSettings):
     @property
     def url(self) -> str:
         return URL.create(
-                drivername="postgresql+asyncpg",
-                username=self.user,
-                password=self.password,
-                host=self.host,
-                port=self.port,
-                database=self.database,
-            ).render_as_string(hide_password=False)
+            drivername="postgresql+asyncpg",
+            username=self.user,
+            password=self.password,
+            host=self.host,
+            port=self.port,
+            database=self.database,
+        ).render_as_string(hide_password=False)
 
 
 class AlchemySettings(BaseSettings):
@@ -73,10 +73,25 @@ class AlchemySettings(BaseSettings):
     expire_on_commit: bool = False
 
 
+class TokenSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=env_path,
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        env_prefix="TOKEN_",
+        extra="ignore",
+    )
+    algorithm: str = "HS256"
+    secret_key: str = "secret_key"
+    access_seconds: int = 1800
+    refresh_seconds: int = 604800
+
+
 class Settings(BaseSettings):
     server: ServerSettings = ServerSettings()
     database: PostgresqlSettings = PostgresqlSettings()
     alchemy: AlchemySettings = AlchemySettings()
+    token: TokenSettings = TokenSettings()
 
 
 def get_settings() -> Settings:
