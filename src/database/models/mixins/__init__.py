@@ -4,8 +4,8 @@ from src.database.models.mixins.with_uuid import ModelWithUUIDMixin
 from src.database.models.mixins.with_email import ModelWithEmailMixin
 
 __all__ = (
-    'ModelWithIDMixin',
-    'ModelWithUUIDMixin',
-    'ModelWithTimeMixin',
-    'ModelWithEmailMixin',
+    "ModelWithIDMixin",
+    "ModelWithUUIDMixin",
+    "ModelWithTimeMixin",
+    "ModelWithEmailMixin",
 )

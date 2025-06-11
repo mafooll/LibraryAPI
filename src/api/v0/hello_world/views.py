@@ -6,5 +6,5 @@ hello_router = APIRouter()
 
 @hello_router.get("/hello")
 async def hello():
-    print('hello')
+    print("hello")
     return {"message": "Hello World"}

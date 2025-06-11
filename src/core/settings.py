@@ -23,9 +23,7 @@ class ServerSettings(BaseSettings):
     @classmethod
     def parse_list(cls, value: str | list[str]) -> list[str]:
         if isinstance(value, str):
-            return [
-                v.strip() for v in value.strip("[]").split(",") if v.strip()
-            ]
+            return [v.strip() for v in value.strip("[]").split(",") if v.strip()]
         return value
 
 

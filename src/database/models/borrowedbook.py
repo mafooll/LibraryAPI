@@ -16,7 +16,6 @@ class BorrowedBook(
     BaseModel,
     ModelWithUUIDMixin,
 ):
-
     book_id: Mapped[int] = mapped_column(
         ForeignKey(Book.id, ondelete="CASCADE"), nullable=False
     )

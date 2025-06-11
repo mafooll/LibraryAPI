@@ -7,4 +7,4 @@ router.include_router(hello_router)
 
 
 def setup_v0_routers(app: FastAPI) -> None:
-    app.include_router(router, prefix='/api/v0', tags=["v0"])
+    app.include_router(router, prefix="/api/v0", tags=["v0"])
