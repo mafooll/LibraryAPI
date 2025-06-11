@@ -23,7 +23,9 @@ class ServerSettings(BaseSettings):
     @classmethod
     def parse_list(cls, value: str | list[str]) -> list[str]:
         if isinstance(value, str):
-            return [v.strip() for v in value.strip("[]").split(",") if v.strip()]
+            return [
+                v.strip() for v in value.strip("[]").split(",") if v.strip()
+            ]
         return value
 
 
@@ -43,28 +45,39 @@ class PostgresqlSettings(BaseSettings):
 
     @property
     def url(self) -> str:
-        return str(
-            URL.create(
+        return URL.create(
                 drivername="postgresql+asyncpg",
                 username=self.user,
                 password=self.password,
                 host=self.host,
                 port=self.port,
                 database=self.database,
-            )
-        )
+            ).render_as_string(hide_password=False)
 
 
-# class AlchemySettings(BaseSettings):
-#     model_config = SettingsConfigDict(
-#         env_file=env_path,
-#         env_file_encoding="utf-8",
-#         case_sensitive=False,
-#         env_prefix="ALCHEMY_",
-#         extra="ignore"
-#     )
+class AlchemySettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=env_path,
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        env_prefix="ALCHEMY_",
+        extra="ignore",
+    )
+    echo: bool = False
+    echo_pool: bool = False
+    pool_size: int = 25
+    pool_recycle: int = 3600
+    pool_timeout: int = 10
+    max_overflow: int = 50
+    autoflush: bool = False
+    expire_on_commit: bool = False
 
 
 class Settings(BaseSettings):
     server: ServerSettings = ServerSettings()
     database: PostgresqlSettings = PostgresqlSettings()
+    alchemy: AlchemySettings = AlchemySettings()
+
+
+def get_settings() -> Settings:
+    return Settings()
