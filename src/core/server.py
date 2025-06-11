@@ -8,6 +8,8 @@ async def run_uvicorn(app: FastAPI, **kw: Any) -> None:
     server = Server(
         Config(
             app,
+            host="0.0.0.0",
+            port=8000,
             **kw,
         )
     )
