@@ -3,7 +3,7 @@ from asyncio import run
 from src.core.server import run_uvicorn
 from src.api.setup import init_app
 
-from src.database.setup import create_tables, drop_tables
+# from src.database.setup import create_tables, drop_tables
 from src.core.container import CoreContainer
 
 from src.api.v0.middlewares.session import ScopedSessionMiddleware
@@ -29,9 +29,9 @@ async def main():
     borrows_container = v0_api.borrows_container()
     borrows_container.wire(packages=["src.api.v0.borrows"])
 
-    engine = container.engine()
+    # engine = container.engine()
 
-    await create_tables(engine=engine)
+    # await create_tables(engine=engine)
 
     try:
         app = init_app()
@@ -42,7 +42,8 @@ async def main():
     except Exception as e:
         print(e)
     finally:
-        await drop_tables(engine=engine)
+        # await drop_tables(engine=engine)
+        pass
 
 
 if __name__ == "__main__":
