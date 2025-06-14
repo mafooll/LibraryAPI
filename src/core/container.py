@@ -26,5 +26,8 @@ class CoreContainer(containers.DeclarativeContainer):
     )
 
     v0_api = providers.Container(
-        V0Container, engine=engine, scoped_session=scoped_session
+        V0Container,
+        engine=engine,
+        scoped_session=scoped_session,
+        settings=settings,
     )

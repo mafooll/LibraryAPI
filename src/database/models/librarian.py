@@ -9,6 +9,8 @@ from src.database.models.mixins import (
 )
 
 
-class Librarian(BaseModel, ModelWithIDMixin, ModelWithEmailMixin, ModelWithTimeMixin):
+class Librarian(
+    BaseModel, ModelWithIDMixin, ModelWithEmailMixin, ModelWithTimeMixin
+):
     username: Mapped[str] = mapped_column(String(32), nullable=True)
-    hashed_pass: Mapped[str] = mapped_column()
+    password: Mapped[str] = mapped_column()

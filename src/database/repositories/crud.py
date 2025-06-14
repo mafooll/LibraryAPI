@@ -24,8 +24,14 @@ class CRUDRepository[ModelType: BaseModel](AbstractCRUDRepository[ModelType]):
     async def select(
         self, *clauses: ColumnExpressionArgument[bool]
     ) -> ModelType | None:
-        smth = select(self.model).where(*clauses)
-        return (await self.session.execute(smth)).scalars().first()
+        stmt = select(self.model).where(*clauses)
+        return (await self.session.execute(stmt)).scalars().first()
+
+    async def select_many(
+        self, *clauses: ColumnExpressionArgument[bool]
+    ) -> Sequence[ModelType]:
+        stmt = select(self.model).where(*clauses)
+        return (await self.session.execute(stmt)).scalars().all()
 
     async def update(
         self, *clauses: ColumnExpressionArgument[bool], **values: Any

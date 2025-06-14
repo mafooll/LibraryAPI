@@ -1,5 +1,4 @@
 from typing import Any, Sequence, Mapping
-
 from abc import ABC, abstractmethod
 
 
@@ -13,6 +12,10 @@ class AbstractCRUDRepository[EntryType](ABC):
 
     @abstractmethod
     async def select(self, *clauses: Any) -> EntryType | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def select_many(self, *clauses: Any) -> Sequence[EntryType]:
         raise NotImplementedError
 
     @abstractmethod

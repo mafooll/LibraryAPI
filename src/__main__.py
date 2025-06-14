@@ -7,6 +7,7 @@ from src.database.setup import create_tables, drop_tables
 from src.core.container import CoreContainer
 
 from src.api.v0.middlewares.session import ScopedSessionMiddleware
+from src.api.v0.auth.middleware import AuthMiddleware
 
 
 async def main():
@@ -16,8 +17,8 @@ async def main():
     v0_api = container.v0_api()
     v0_api.wire(packages=["src.api.v0"])
 
-    hello_container = v0_api.hello_container()
-    hello_container.wire(packages=["src.api.v0.hello"])
+    auth_container = v0_api.auth_container()
+    auth_container.wire(packages=["src.api.v0.auth"])
 
     engine = container.engine()
 
@@ -25,8 +26,9 @@ async def main():
 
     try:
         app = init_app()
-        # app.container = container
         app.add_middleware(ScopedSessionMiddleware)
+        app.add_middleware(AuthMiddleware)
+
         await run_uvicorn(app)
     except Exception as e:
         print(e)
