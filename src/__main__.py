@@ -20,6 +20,9 @@ async def main():
     auth_container = v0_api.auth_container()
     auth_container.wire(packages=["src.api.v0.auth"])
 
+    readers_container = v0_api.readers_container()
+    readers_container.wire(packages=["src.api.v0.readers"])
+
     engine = container.engine()
 
     await create_tables(engine=engine)

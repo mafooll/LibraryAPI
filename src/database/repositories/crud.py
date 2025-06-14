@@ -33,6 +33,11 @@ class CRUDRepository[ModelType: BaseModel](AbstractCRUDRepository[ModelType]):
         stmt = select(self.model).where(*clauses)
         return (await self.session.execute(stmt)).scalars().all()
 
+    async def select_all(self) -> Sequence[ModelType] | None:
+        stmt = select(self.model)
+        result = await self.session.execute(stmt)
+        return result.scalars().all()
+
     async def update(
         self, *clauses: ColumnExpressionArgument[bool], **values: Any
     ) -> Sequence[ModelType]:

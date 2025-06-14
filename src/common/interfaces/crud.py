@@ -19,6 +19,10 @@ class AbstractCRUDRepository[EntryType](ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def select_all(self) -> Sequence[EntryType] | None:
+        raise NotImplementedError
+
+    @abstractmethod
     async def update(
         self, *clauses: Any, **values: Mapping[str, Any]
     ) -> Sequence[EntryType]:
