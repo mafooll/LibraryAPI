@@ -16,9 +16,9 @@
 ## 📦 Установка
 
 ```bash
-git clone https://github.com/yourname/libraryapi.git
-cd libraryapi
-cp .env.example .env
+https://github.com/mafooll/LibraryAPI.git &&
+cd libraryapi &&
+cp .env.example .env &&
 docker-compose up --build
 ```
 
