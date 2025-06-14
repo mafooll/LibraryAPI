@@ -18,3 +18,4 @@ class Book(
     year: Mapped[int] = mapped_column(nullable=True)
     isbn: Mapped[str] = mapped_column(String(32), unique=True, nullable=True)
     count: Mapped[int] = mapped_column(default=1, nullable=False)
+    description: Mapped[str] = mapped_column(String, nullable=True)
