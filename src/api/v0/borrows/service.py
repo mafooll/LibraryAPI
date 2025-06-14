@@ -25,24 +25,25 @@ class BorrowsService:
     async def borrow(self, data: BorrowingCreate) -> dict:
         book_count = await self.books_repo.in_stock(data.book_uuid)
         if book_count is None:
-            raise HTTPException(status_code=404, detail="Книга не найдена")
+            raise HTTPException(status_code=404, detail="Book not found")
 
         if book_count <= 0:
             raise HTTPException(
-                status_code=400, detail="Нет доступных экземпляров книги"
+                status_code=400, detail="No available copies of the book"
             )
 
         borrowed = await self.borrows_repo.reader_borrowed_list(data.reader_id)
         if len(borrowed) >= 3:
             raise HTTPException(
-                status_code=400, detail="Читатель не может взять более 3 книг"
+                status_code=400,
+                detail="Reader cannot borrow more than 3 books",
             )
 
         await self.books_repo.decr(data.book_uuid)
         borrow_record = await self.borrows_repo.borrow(data)
 
         return {
-            "message": "Книга выдана",
+            "message": "Book has been borrowed",
             "borrow_id": str(borrow_record.uuid),
         }
 
@@ -58,13 +59,16 @@ class BorrowsService:
         if not borrow:
             raise HTTPException(
                 status_code=400,
-                detail="Эта книга не выдана этому читателю или уже возвращена",
+                detail="""
+                    This book was not borrowed by this reader
+                    or is already returned
+                """,
             )
 
         await self.borrows_repo.receive(borrow.uuid)
         await self.books_repo.inc(data.book_uuid)
 
-        return {"message": "Книга успешно возвращена"}
+        return {"message": "Book successfully returned"}
 
     async def reader_borrowed_list(
         self, reader_id: int

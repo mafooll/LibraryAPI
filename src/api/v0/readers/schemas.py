@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 
 
@@ -8,7 +8,6 @@ class ReaderCreate(BaseModel):
 
 
 class ReaderUpdate(BaseModel):
-    # id: Optional[int] = None
     username: Optional[str] = None
     email: Optional[EmailStr] = None
 
@@ -18,5 +17,4 @@ class ReaderRead(BaseModel):
     username: str
     email: EmailStr
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
