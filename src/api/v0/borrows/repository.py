@@ -30,7 +30,7 @@ class BorrowsRepository(BaseRepository[BorrowedBook]):
     async def receive(self, borrow_uuid: UUID) -> BorrowedBook | None:
         result = await self.crud.update(
             self.model.uuid == borrow_uuid,
-            self.model.return_date == datetime.now(timezone.utc),
+            return_date=datetime.now(timezone.utc),
         )
         return result[0] if result else None
 
@@ -71,7 +71,8 @@ class BooksRepository(BaseRepository[Book]):
             return False
         new_count = book.count + 1
         await self.crud.update(
-            where=self.model.uuid == uuid, values={"count": new_count}
+            self.model.uuid == uuid,
+            **{"count": new_count}
         )
         return True
 
@@ -82,6 +83,7 @@ class BooksRepository(BaseRepository[Book]):
             return False
         new_count = book.count - 1
         await self.crud.update(
-            self.model.uuid == uuid, self.model.count == new_count
+            self.model.uuid == uuid,
+            **{"count": new_count}
         )
         return True
