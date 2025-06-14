@@ -8,7 +8,7 @@ class BooksCreate(BaseModel):
     author: str
     year: int
     isbn: str
-    count: int
+    count: int = 1
 
 
 class BooksUpdate(BaseModel):

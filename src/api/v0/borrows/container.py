@@ -17,5 +17,4 @@ class BorrowsContainer(containers.DeclarativeContainer):
         BorrowsService,
         borrows_repo=borrows_repo,
         books_repo=books_repo,
-        settings=settings,
     )

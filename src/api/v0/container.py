@@ -4,6 +4,7 @@ from src.api.v0.auth.container import AuthContainer
 from src.api.v0.readers.container import ReadersContainer
 from src.api.v0.books.container import BooksContainer
 from src.api.v0.borrows.container import BorrowsContainer
+from src.api.v0.info.container import InfoContainer
 
 
 class V0Container(containers.DeclarativeContainer):
@@ -22,4 +23,7 @@ class V0Container(containers.DeclarativeContainer):
     )
     borrows_container = providers.Container(
         BorrowsContainer, scoped_session=scoped_session, settings=settings
+    )
+    info_container = providers.Container(
+        InfoContainer, scoped_session=scoped_session, settings=settings
     )
