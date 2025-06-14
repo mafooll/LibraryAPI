@@ -26,6 +26,9 @@ async def main():
     books_container = v0_api.books_container()
     books_container.wire(packages=["src.api.v0.books"])
 
+    borrows_container = v0_api.borrows_container()
+    borrows_container.wire(packages=["src.api.v0.borrows"])
+
     engine = container.engine()
 
     await create_tables(engine=engine)

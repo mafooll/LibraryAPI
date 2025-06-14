@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 from sqlalchemy import func
 from sqlalchemy import DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
@@ -16,8 +17,8 @@ class BorrowedBook(
     BaseModel,
     ModelWithUUIDMixin,
 ):
-    book_id: Mapped[int] = mapped_column(
-        ForeignKey(Book.id, ondelete="CASCADE"), nullable=False
+    book_uuid: Mapped[UUID] = mapped_column(
+        ForeignKey(Book.uuid, ondelete="CASCADE"), nullable=False
     )
     reader_id: Mapped[int] = mapped_column(
         ForeignKey(Reader.id, ondelete="CASCADE"), nullable=False

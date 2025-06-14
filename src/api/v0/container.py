@@ -3,6 +3,7 @@ from dependency_injector import containers, providers
 from src.api.v0.auth.container import AuthContainer
 from src.api.v0.readers.container import ReadersContainer
 from src.api.v0.books.container import BooksContainer
+from src.api.v0.borrows.container import BorrowsContainer
 
 
 class V0Container(containers.DeclarativeContainer):
@@ -18,4 +19,7 @@ class V0Container(containers.DeclarativeContainer):
     )
     books_container = providers.Container(
         BooksContainer, scoped_session=scoped_session, settings=settings
+    )
+    borrows_container = providers.Container(
+        BorrowsContainer, scoped_session=scoped_session, settings=settings
     )
