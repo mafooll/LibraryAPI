@@ -17,7 +17,7 @@
 
 ```bash
 https://github.com/mafooll/LibraryAPI.git &&
-cd libraryapi &&
+cd LibraryAPI &&
 cp .env.example .env &&
 docker-compose up --build
 ```
