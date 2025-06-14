@@ -9,6 +9,7 @@ class BooksCreate(BaseModel):
     year: int
     isbn: str
     count: int = 1
+    description: str
 
 
 class BooksUpdate(BaseModel):
@@ -17,6 +18,7 @@ class BooksUpdate(BaseModel):
     year: int | None = None
     isbn: str | None = None
     count: int | None = None
+    description: str | None = None
 
 
 class BooksRead(BaseModel):
@@ -26,5 +28,6 @@ class BooksRead(BaseModel):
     year: int
     isbn: str
     count: int
+    description: str
 
     model_config = ConfigDict(from_attributes=True)
